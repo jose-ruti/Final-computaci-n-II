@@ -1,0 +1,43 @@
+version: "1.1"
+
+services:
+    python:
+        build: .
+        ports:
+            - "1234:1234"
+        depends_on:
+            - mysql
+            - redis
+
+    mysql:
+        build: ./db/
+        restart: always
+        ports:
+            - "3306:3306"
+        environment:
+            - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+            - MYSQL_DATABASE=tradingbot
+
+    redis:
+        image: "redis:alpine"
+        ports:
+            - "6379:6379"
+
+    celery:
+        build: .
+        command: sh -c "cd /app/service && celery -A celery_app worker"
+        depends_on:
+            - redis
+            - python
+
+    node:
+        build: ./utils/
+        ports: 
+            - "8000:8000"
+
+    front:
+        build: ./front/
+        ports:
+            - "5173:5173"
+        container_name: react_front
+
