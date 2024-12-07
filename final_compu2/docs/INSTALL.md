@@ -5,7 +5,7 @@
 Abrir una terminal y ejecutar el siguiente comando
 
 ```powershell
-git clone https://github.com/GastonFenske/final_compu2.git
+git clone https://github.com/jose-ruti/Final-computacion-II.git
 ```
 
 # Instalacion
