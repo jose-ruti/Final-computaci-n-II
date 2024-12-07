@@ -162,5 +162,6 @@ class SuperPatronStrategy(TradeStrategy):
             'ema_growing': ''
         }
 
+          # aca hasta aca voy
         
 

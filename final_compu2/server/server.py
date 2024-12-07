@@ -19,14 +19,14 @@ class Server:
         self.host = host
         self.port = port
 
-    def parcear(self, dato):
+    def parse(self, data):
         try:
-            encabezado = dato.decode().splitlines()[0]
-            pedido = encabezado.split()
-            body = dato.decode().splitlines()[-1]
+            header = data.decode().splitlines()[0]
+            request = header.split()
+            body = data.decode().splitlines()[-1]
         except:
             pass
-        return(pedido, body)
+        return(request, body)
 
     async def echo_handle(self, reader, writer):
 
@@ -35,7 +35,7 @@ class Server:
 
         data = await reader.read(10000)
 
-        request, body = self.parcear(data)
+        request, body = self.parse(data)
 
         request = Request(request[0], request[1], request[2], body)
 
